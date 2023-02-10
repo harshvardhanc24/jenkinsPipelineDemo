@@ -1,0 +1,19 @@
+pipeline {
+  agent any
+  
+  stages {
+    stage('Build') {
+      steps {
+        sh './gradlew build'
+      }
+    }
+    stage('Deploy') {
+      steps {
+        sshagent(['jenkins-ssh-key']) {
+          sh 'scp build/libs/webapp.war user@server:/var/www/html/'
+          sh 'ssh user@server "sudo service tomcat restart"'
+        }
+      }
+    }
+  }
+}
