@@ -1,0 +1,29 @@
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                sh 'make'
+            }
+        }
+        stage('Test') {
+            parallel {
+                stage('Unit Tests') {
+                    steps {
+                        sh 'make test-unit'
+                    }
+                }
+                stage('Integration Tests') {
+                    steps {
+                        sh 'make test-integration'
+                    }
+                }
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sh 'make deploy'
+            }
+        }
+    }
+}
