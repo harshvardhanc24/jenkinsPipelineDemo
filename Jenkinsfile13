@@ -1,0 +1,22 @@
+pipeline {
+  agent any
+  stages {
+    stage('Build') {
+      when {
+        changeset "refs/heads/main"
+      }
+      steps {
+        // Build steps
+      }
+    }
+    stage('Test') {
+      when {
+        branch "develop"
+        manual true
+      }
+      steps {
+        // Test steps
+      }
+    }
+  }
+}
