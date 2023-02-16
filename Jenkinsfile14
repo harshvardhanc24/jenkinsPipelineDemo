@@ -1,0 +1,34 @@
+pipeline {
+  agent any
+  stages {
+    stage('Build') {
+      when {
+        changeset "refs/heads/main"
+      }
+      steps {
+        echo 'Building'
+      }
+    }
+    stage('Test') {
+      when {
+        branch "develop"
+      }
+      steps {
+        script {
+          input message: 'Do you want to run the test stage?', ok: 'Run'
+          echo 'Testing'
+        }
+      }
+    }
+    stage('Deploy') {
+      when {
+        expression {
+          params.MANUAL_TRIGGER == 'true'
+        }
+      }
+      steps {
+        echo 'Deploying'
+      }
+    }
+  }
+}
