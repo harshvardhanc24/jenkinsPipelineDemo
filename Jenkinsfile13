@@ -12,11 +12,14 @@ pipeline {
     stage('Test') {
       when {
         branch "develop"
-        manual true
       }
       steps {
-        echo 'Tresting'
+        script {
+          input message: 'Do you want to run the test stage?', ok: 'Run'
+          echo 'Testing'
+        }
       }
     }
   }
 }
+
