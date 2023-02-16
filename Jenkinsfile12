@@ -1,0 +1,27 @@
+pipeline {
+    agent any
+    options {
+        // Set up SCM polling to trigger builds
+        // only for the "main" and "develop" branches
+        scm {
+            git {
+                branch '*/main'
+                branch '*/develop'
+            }
+        }
+    }
+    stages {
+        stage('Build') {
+            steps {
+                // Your build steps here
+            }
+        }
+    }
+    triggers {
+        pollSCM('H/5 * * * *') // Poll every 5 minutes
+    }
+    when {
+        changeset "*/main"
+        changeset "*/develop"
+    }
+}
