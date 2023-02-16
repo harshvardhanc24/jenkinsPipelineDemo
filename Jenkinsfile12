@@ -1,7 +1,7 @@
 pipeline {
     agent any
     options {
-        // Set up SCM polling to trigger builds
+        // Set up SCM polling to trigger buildss
         // only for the "main" and "develop" branches
         scm {
             git {
