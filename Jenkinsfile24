@@ -18,20 +18,22 @@ pipeline {
       }
     }
     stage('Test') {
+      when {
+        branch "develop"
+      }
       steps {
         echo 'Testing'
       }
-      when {
-        branch "develop"
-      }
     }
     stage('Deploy') {
-      steps {
-        echo 'Deploying'
-      }
       when {
         branch "develop"
+      }
+      steps {
+        echo 'Deploying'
       }
     }
   }
 }
+
+
